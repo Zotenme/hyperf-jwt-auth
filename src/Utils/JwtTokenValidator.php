@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Utils;
 
@@ -64,7 +72,7 @@ class JwtTokenValidator
         try {
             $token = $this->jwtConfiguration->parser()->parse($tokenString);
 
-            if (!$token instanceof UnencryptedToken) {
+            if (! $token instanceof UnencryptedToken) {
                 throw new TokenInvalidException('Invalid token format');
             }
 
@@ -99,7 +107,7 @@ class JwtTokenValidator
 
         $token = $this->jwtConfiguration->parser()->parse($tokenString);
 
-        if (!$token instanceof UnencryptedToken) {
+        if (! $token instanceof UnencryptedToken) {
             throw new TokenInvalidException('Invalid token format');
         }
 
@@ -117,7 +125,7 @@ class JwtTokenValidator
 
         $token = $this->jwtConfiguration->parser()->parse($tokenString);
 
-        if (!$token instanceof UnencryptedToken) {
+        if (! $token instanceof UnencryptedToken) {
             throw new TokenInvalidException('Invalid token format');
         }
 
@@ -166,11 +174,11 @@ class JwtTokenValidator
         $issuer = $this->config->getIssuer();
         $audience = $this->config->getConfig()['audience'] ?? null;
 
-        if (!empty($issuer)) {
+        if (! empty($issuer)) {
             $constraints[] = new IssuedBy($issuer);
         }
 
-        if (!empty($audience)) {
+        if (! empty($audience)) {
             $constraints[] = new PermittedFor($audience);
         }
 
@@ -182,7 +190,7 @@ class JwtTokenValidator
      */
     private function createClock(): ClockInterface
     {
-        return new class() implements ClockInterface {
+        return new class implements ClockInterface {
             public function now(): \DateTimeImmutable
             {
                 return new \DateTimeImmutable('now', new \DateTimeZone('UTC'));

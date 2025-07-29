@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Service;
 
@@ -15,7 +23,9 @@ use Zotenme\JwtAuth\Contract\TokenStorageInterface;
 class TokenStorage implements TokenStorageInterface
 {
     private const BLACKLIST_PREFIX = 'jwt_blacklist:';
+
     private const SUBJECT_TOKENS_PREFIX = 'jwt_subject_tokens:';
+
     private const DEFAULT_CACHE_POOL = 'default';
 
     public function __construct(
@@ -69,7 +79,7 @@ class TokenStorage implements TokenStorageInterface
      */
     public function revokeToken(string $jti, ?int $ttl = null): void
     {
-        if (!$this->isBlacklistEnabled()) {
+        if (! $this->isBlacklistEnabled()) {
             return;
         }
 
@@ -82,7 +92,7 @@ class TokenStorage implements TokenStorageInterface
      */
     public function isTokenRevoked(string $jti): bool
     {
-        if (!$this->isBlacklistEnabled()) {
+        if (! $this->isBlacklistEnabled()) {
             return false;
         }
 
@@ -169,7 +179,7 @@ class TokenStorage implements TokenStorageInterface
         $key = self::SUBJECT_TOKENS_PREFIX . $subjectId;
         $tokens = $this->get($key, []);
 
-        if (!in_array($jti, $tokens, true)) {
+        if (! in_array($jti, $tokens, true)) {
             $tokens[] = $jti;
 
             return $this->set($key, $tokens, $ttl);

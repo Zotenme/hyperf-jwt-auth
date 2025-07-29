@@ -1,12 +1,25 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Tests\Unit\Config;
 
 use Zotenme\JwtAuth\Config\JwtAlgorithm;
 use Zotenme\JwtAuth\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class JwtAlgorithmTest extends TestCase
 {
     public function testGetSupportedAlgorithms(): void
@@ -39,7 +52,7 @@ class JwtAlgorithmTest extends TestCase
 
         $invalidValue = 'INVALID';
         $result = JwtAlgorithm::from($invalidValue);
-        
+
         // This line should never be reached due to the exception above
         $this->fail('Expected ValueError was not thrown');
     }

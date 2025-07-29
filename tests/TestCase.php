@@ -1,11 +1,18 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Tests;
 
 use Hyperf\Contract\ConfigInterface;
-use Mockery;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Psr\SimpleCache\CacheInterface;
 
@@ -13,7 +20,7 @@ abstract class TestCase extends BaseTestCase
 {
     protected function tearDown(): void
     {
-        Mockery::close();
+        \Mockery::close();
         parent::tearDown();
     }
 
@@ -43,11 +50,11 @@ abstract class TestCase extends BaseTestCase
 
         $mergedConfig = array_merge($defaultConfig, $config);
 
-        $mock = Mockery::mock(ConfigInterface::class);
+        $mock = \Mockery::mock(ConfigInterface::class);
 
         foreach ($mergedConfig as $key => $value) {
             $mock->shouldReceive('get')
-                ->with($key, Mockery::any())
+                ->with($key, \Mockery::any())
                 ->andReturn($value);
         }
 
@@ -57,7 +64,7 @@ abstract class TestCase extends BaseTestCase
                 return $mergedConfig[$key] ?? $default;
             });
 
-        /** @var ConfigInterface&\Mockery\MockInterface $mock */
+        /* @var ConfigInterface&\Mockery\MockInterface $mock */
         return $mock;
     }
 
@@ -66,7 +73,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function createMockCache(): CacheInterface
     {
-        $cache = Mockery::mock(CacheInterface::class);
+        $cache = \Mockery::mock(CacheInterface::class);
 
         $cache->shouldReceive('get')
             ->andReturn(null);
@@ -80,7 +87,7 @@ abstract class TestCase extends BaseTestCase
         $cache->shouldReceive('has')
             ->andReturn(false);
 
-        /** @var CacheInterface&\Mockery\MockInterface $cache */
+        /* @var CacheInterface&\Mockery\MockInterface $cache */
         return $cache;
     }
 

@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Tests\Unit\Exception;
 
@@ -10,6 +18,11 @@ use Zotenme\JwtAuth\Exception\TokenExpiredException;
 use Zotenme\JwtAuth\Exception\TokenInvalidException;
 use Zotenme\JwtAuth\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class ExceptionTest extends TestCase
 {
     public function testJwtException(): void

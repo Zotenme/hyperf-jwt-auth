@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Config;
 
@@ -27,7 +35,7 @@ class JwtConfig
     {
         $algorithm = $this->config->get(self::CONFIG_KEY . '.algorithm', 'HS256');
 
-        if (!in_array($algorithm, JwtAlgorithm::getSupported(), true)) {
+        if (! in_array($algorithm, JwtAlgorithm::getSupported(), true)) {
             throw new JwtException("Unsupported algorithm: {$algorithm}");
         }
 

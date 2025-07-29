@@ -1,10 +1,18 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Tests\Unit;
 
-use Mockery;
+use Mockery\MockInterface;
 use Zotenme\JwtAuth\Config\JwtConfig;
 use Zotenme\JwtAuth\Contract\TokenStorageInterface;
 use Zotenme\JwtAuth\DTO\JwtPayload;
@@ -16,15 +24,24 @@ use Zotenme\JwtAuth\Tests\TestCase;
 use Zotenme\JwtAuth\Utils\JwtTokenBuilder;
 use Zotenme\JwtAuth\Utils\JwtTokenValidator;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class JwtManagerTest extends TestCase
 {
     private JwtManager $jwtManager;
+
     private JwtConfig $config;
-    /** @var TokenStorageInterface&\Mockery\MockInterface */
+
+    /** @var MockInterface&TokenStorageInterface */
     private TokenStorageInterface $tokenStorage;
-    /** @var JwtTokenBuilder&\Mockery\MockInterface */
+
+    /** @var JwtTokenBuilder&MockInterface */
     private JwtTokenBuilder $tokenBuilder;
-    /** @var JwtTokenValidator&\Mockery\MockInterface */
+
+    /** @var JwtTokenValidator&MockInterface */
     private JwtTokenValidator $tokenValidator;
 
     protected function setUp(): void
@@ -34,9 +51,9 @@ class JwtManagerTest extends TestCase
         $mockConfig = $this->createMockConfig();
         $this->config = new JwtConfig($mockConfig);
 
-        $this->tokenStorage = Mockery::mock(TokenStorageInterface::class);
-        $this->tokenBuilder = Mockery::mock(JwtTokenBuilder::class);
-        $this->tokenValidator = Mockery::mock(JwtTokenValidator::class);
+        $this->tokenStorage = \Mockery::mock(TokenStorageInterface::class);
+        $this->tokenBuilder = \Mockery::mock(JwtTokenBuilder::class);
+        $this->tokenValidator = \Mockery::mock(JwtTokenValidator::class);
 
         $this->jwtManager = new JwtManager(
             $this->config,

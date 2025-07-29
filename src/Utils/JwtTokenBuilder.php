@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Utils;
 
@@ -117,7 +125,7 @@ class JwtTokenBuilder
 
         $builder = $this->jwtConfiguration->builder();
 
-        if (!empty($jti)) {
+        if (! empty($jti)) {
             $builder = $builder->identifiedBy($jti);
         }
 
@@ -125,18 +133,17 @@ class JwtTokenBuilder
             ->issuedAt($now)
             ->canOnlyBeUsedAfter($now)
             ->expiresAt($now->modify("+{$ttl} seconds"))
-            ->withClaim('type', $type)
-        ;
+            ->withClaim('type', $type);
 
-        if (!empty($issuer)) {
+        if (! empty($issuer)) {
             $builder = $builder->issuedBy($issuer);
         }
 
-        if (!empty($audience)) {
+        if (! empty($audience)) {
             $builder = $builder->permittedFor($audience);
         }
 
-        if (!empty($subjectId)) {
+        if (! empty($subjectId)) {
             $builder = $builder->relatedTo($subjectId);
         }
 

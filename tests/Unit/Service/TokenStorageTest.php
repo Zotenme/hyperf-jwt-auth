@@ -1,31 +1,45 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf JWT Auth.
+ *
+ * @link     https://github.com/Zotenme/hyperf-jwt-auth
+ * @document https://github.com/Zotenme/hyperf-jwt-auth/blob/main/README.md
+ * @contact  zotenme@gmail.com
+ * @license  https://github.com/Zotenme/hyperf-jwt-auth/blob/main/LICENSE
+ */
 
 namespace Zotenme\JwtAuth\Tests\Unit\Service;
 
 use Hyperf\Cache\CacheManager;
 use Hyperf\Cache\Driver\DriverInterface;
-use Hyperf\Contract\ConfigInterface;
-use Mockery;
+use Mockery\MockInterface;
 use Zotenme\JwtAuth\Config\JwtConfig;
 use Zotenme\JwtAuth\Service\TokenStorage;
 use Zotenme\JwtAuth\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class TokenStorageTest extends TestCase
 {
     private TokenStorage $tokenStorage;
-    /** @var DriverInterface&\Mockery\MockInterface */
+
+    /** @var DriverInterface&MockInterface */
     private DriverInterface $cache;
+
     private JwtConfig $jwtConfig;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->cache = Mockery::mock(DriverInterface::class);
+        $this->cache = \Mockery::mock(DriverInterface::class);
 
-        $cacheManager = Mockery::mock(CacheManager::class);
+        $cacheManager = \Mockery::mock(CacheManager::class);
         $cacheManager->shouldReceive('getDriver')
             ->with('default')
             ->andReturn($this->cache);
@@ -85,8 +99,8 @@ class TokenStorageTest extends TestCase
         $config = $this->createMockConfig(['jwt.blacklist.enabled' => false]);
         $jwtConfig = new JwtConfig($config);
 
-        /** @var CacheManager&\Mockery\MockInterface $cacheManager */
-        $cacheManager = Mockery::mock(CacheManager::class);
+        /** @var CacheManager&MockInterface $cacheManager */
+        $cacheManager = \Mockery::mock(CacheManager::class);
         $cacheManager->shouldReceive('getDriver')->andReturn($this->cache);
 
         $tokenStorage = new TokenStorage($cacheManager, $config, $jwtConfig);
@@ -103,8 +117,8 @@ class TokenStorageTest extends TestCase
         $config = $this->createMockConfig(['jwt.blacklist.enabled' => false]);
         $jwtConfig = new JwtConfig($config);
 
-        /** @var CacheManager&\Mockery\MockInterface $cacheManager */
-        $cacheManager = Mockery::mock(CacheManager::class);
+        /** @var CacheManager&MockInterface $cacheManager */
+        $cacheManager = \Mockery::mock(CacheManager::class);
         $cacheManager->shouldReceive('getDriver')->andReturn($this->cache);
 
         $tokenStorage = new TokenStorage($cacheManager, $config, $jwtConfig);
@@ -123,8 +137,8 @@ class TokenStorageTest extends TestCase
         $config = $this->createMockConfig(['jwt.sso_mode' => true]);
         $jwtConfig = new JwtConfig($config);
 
-        /** @var CacheManager&\Mockery\MockInterface $cacheManager */
-        $cacheManager = Mockery::mock(CacheManager::class);
+        /** @var CacheManager&MockInterface $cacheManager */
+        $cacheManager = \Mockery::mock(CacheManager::class);
         $cacheManager->shouldReceive('getDriver')->andReturn($this->cache);
 
         $tokenStorage = new TokenStorage($cacheManager, $config, $jwtConfig);
