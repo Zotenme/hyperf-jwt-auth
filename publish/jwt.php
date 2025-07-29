@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use function Hyperf\Support\env;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +28,7 @@ return [
     |
     */
     'keys' => [
-        'secret_key' => 'your-secret-key-change-this-in-production',
+        'secret_key' => env('JWT_SECRET'),
         'private_key' => null, // path to private key file or key content
         'public_key' => null,  // path to public key file or key content
         'passphrase' => null,  // passphrase for private key (if any)
