@@ -87,7 +87,7 @@ class JwtManagerTest extends TestCase
             ->once()
             ->andReturn(true);
 
-        $this->tokenStorage->shouldReceive('revokeAllUserTokens')
+        $this->tokenStorage->shouldReceive('revokeAllSubjectTokens')
             ->with($subjectId)
             ->once();
 
@@ -240,5 +240,42 @@ class JwtManagerTest extends TestCase
         $this->expectExceptionMessage('Failed to revoke token: Test exception');
 
         $this->jwtManager->revokeToken($token);
+    }
+
+    public function testRevokeAllSubjectTokensWithValidSubjectId(): void
+    {
+        $subjectId = 'subject-123';
+
+        $this->tokenStorage->shouldReceive('revokeAllSubjectTokens')
+            ->with($subjectId)
+            ->once();
+
+        $this->jwtManager->revokeAllSubjectTokens($subjectId);
+
+        // Test passes if no exception is thrown
+        $this->assertTrue(true);
+    }
+
+    public function testRevokeAllSubjectTokensWithEmptySubjectId(): void
+    {
+        $this->expectException(JwtException::class);
+        $this->expectExceptionMessage('Subject ID cannot be empty');
+
+        $this->jwtManager->revokeAllSubjectTokens('');
+    }
+
+    public function testRevokeAllSubjectTokensHandlesStorageException(): void
+    {
+        $subjectId = 'subject-123';
+
+        $this->tokenStorage->shouldReceive('revokeAllSubjectTokens')
+            ->with($subjectId)
+            ->once()
+            ->andThrow(new \Exception('Storage error'));
+
+        $this->expectException(JwtException::class);
+        $this->expectExceptionMessage('Failed to revoke all subject tokens: Storage error');
+
+        $this->jwtManager->revokeAllSubjectTokens($subjectId);
     }
 }

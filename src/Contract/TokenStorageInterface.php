@@ -40,26 +40,26 @@ interface TokenStorageInterface
     public function isTokenRevoked(string $jti): bool;
 
     /**
-     * Revokes all user tokens (for SSO mode).
+     * Revokes all subject tokens (for SSO mode).
      */
-    public function revokeAllUserTokens(string $subjectId): void;
+    public function revokeAllSubjectTokens(string $subjectId): void;
 
     /**
-     * Registers a new user token.
+     * Registers a new subject token.
      */
-    public function registerUserToken(string $subjectId, string $jti, bool $ssoMode = false): void;
+    public function registerSubjectToken(string $subjectId, string $jti, bool $ssoMode = false): void;
 
     /**
-     * Removes a token from the list of active user tokens.
+     * Removes a token from the list of active subject tokens.
      */
-    public function unregisterUserToken(string $subjectId, string $jti): void;
+    public function unregisterSubjectToken(string $subjectId, string $jti): void;
 
     /**
-     * Retrieves the list of active user tokens.
+     * Retrieves the list of active subject tokens.
      *
      * @return array<string, mixed>
      */
-    public function getUserActiveTokens(string $subjectId): array;
+    public function getSubjectActiveTokens(string $subjectId): array;
 
     /**
      * Cleans up expired entries from the blacklist.

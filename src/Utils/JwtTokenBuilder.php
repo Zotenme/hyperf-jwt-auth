@@ -64,8 +64,8 @@ class JwtTokenBuilder
 
         // Register tokens
         $ssoMode = $this->tokenStorage->isSsoModeEnabled();
-        $this->tokenStorage->registerUserToken($subjectId, $accessTokenJti, $ssoMode);
-        $this->tokenStorage->registerUserToken($subjectId, $refreshTokenJti, $ssoMode);
+        $this->tokenStorage->registerSubjectToken($subjectId, $accessTokenJti, $ssoMode);
+        $this->tokenStorage->registerSubjectToken($subjectId, $refreshTokenJti, $ssoMode);
 
         return new TokenPair(
             $accessToken,
@@ -94,7 +94,7 @@ class JwtTokenBuilder
 
         // Register token
         $ssoMode = $this->tokenStorage->isSsoModeEnabled();
-        $this->tokenStorage->registerUserToken($subjectId, $jti, $ssoMode);
+        $this->tokenStorage->registerSubjectToken($subjectId, $jti, $ssoMode);
 
         return $token;
     }

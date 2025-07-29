@@ -39,7 +39,7 @@ class JwtAlgorithmTest extends TestCase
 
         $invalidValue = 'INVALID';
         $result = JwtAlgorithm::from($invalidValue);
-
+        
         // This line should never be reached due to the exception above
         $this->fail('Expected ValueError was not thrown');
     }

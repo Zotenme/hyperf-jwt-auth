@@ -36,9 +36,9 @@ class JwtManager implements JwtManagerInterface
             throw new JwtException('Subject ID cannot be empty');
         }
 
-        // In SSO mode, revoke all old user tokens
+        // In SSO mode, revoke all old subject tokens
         if ($this->tokenStorage->isSsoModeEnabled()) {
-            $this->tokenStorage->revokeAllUserTokens($subjectId);
+            $this->tokenStorage->revokeAllSubjectTokens($subjectId);
         }
 
         return $this->tokenBuilder->createTokenPair($subjectId, $payload);
@@ -118,10 +118,26 @@ class JwtManager implements JwtManagerInterface
             $subjectId = $parsedToken->claims()->get(RegisteredClaims::SUBJECT);
 
             if ($subjectId) {
-                $this->tokenStorage->unregisterUserToken($subjectId, $jti);
+                $this->tokenStorage->unregisterSubjectToken($subjectId, $jti);
             }
         } catch (\Exception $e) {
             throw new JwtException('Failed to revoke token: ' . $e->getMessage(), 0, $e);
+        }
+    }
+
+    /**
+     * Revokes all tokens for a specific subject.
+     */
+    public function revokeAllSubjectTokens(string $subjectId): void
+    {
+        if (empty($subjectId)) {
+            throw new JwtException('Subject ID cannot be empty');
+        }
+
+        try {
+            $this->tokenStorage->revokeAllSubjectTokens($subjectId);
+        } catch (\Exception $e) {
+            throw new JwtException('Failed to revoke all subject tokens: ' . $e->getMessage(), 0, $e);
         }
     }
 }

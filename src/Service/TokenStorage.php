@@ -15,7 +15,7 @@ use Zotenme\JwtAuth\Contract\TokenStorageInterface;
 class TokenStorage implements TokenStorageInterface
 {
     private const BLACKLIST_PREFIX = 'jwt_blacklist:';
-    private const USER_TOKENS_PREFIX = 'jwt_user_tokens:';
+    private const SUBJECT_TOKENS_PREFIX = 'jwt_subject_tokens:';
     private const DEFAULT_CACHE_POOL = 'default';
 
     public function __construct(
@@ -92,47 +92,47 @@ class TokenStorage implements TokenStorageInterface
     }
 
     /**
-     * Revokes all user tokens (for SSO mode).
+     * Revokes all subject tokens (for SSO mode).
      */
-    public function revokeAllUserTokens(string $subjectId): void
+    public function revokeAllSubjectTokens(string $subjectId): void
     {
-        $userTokens = $this->getUserActiveTokens($subjectId);
+        $subjectTokens = $this->getSubjectActiveTokens($subjectId);
 
-        foreach ($userTokens as $jti) {
+        foreach ($subjectTokens as $jti) {
             $this->revokeToken($jti);
         }
 
-        $this->clearUserTokens($subjectId);
+        $this->clearSubjectTokens($subjectId);
     }
 
     /**
-     * Registers a new user token.
+     * Registers a new subject token.
      */
-    public function registerUserToken(string $subjectId, string $jti, bool $ssoMode = false): void
+    public function registerSubjectToken(string $subjectId, string $jti, bool $ssoMode = false): void
     {
         if ($ssoMode) {
-            $this->clearUserTokens($subjectId);
+            $this->clearSubjectTokens($subjectId);
         }
 
-        $this->addUserToken($subjectId, $jti);
+        $this->addSubjectToken($subjectId, $jti);
     }
 
     /**
-     * Removes a token from the list of active user tokens.
+     * Removes a token from the list of active subject tokens.
      */
-    public function unregisterUserToken(string $subjectId, string $jti): void
+    public function unregisterSubjectToken(string $subjectId, string $jti): void
     {
-        $this->removeUserToken($subjectId, $jti);
+        $this->removeSubjectToken($subjectId, $jti);
     }
 
     /**
-     * Retrieves the list of active user tokens.
+     * Retrieves the list of active subject tokens.
      *
      * @return array<string, mixed>
      */
-    public function getUserActiveTokens(string $subjectId): array
+    public function getSubjectActiveTokens(string $subjectId): array
     {
-        return $this->getUserTokens($subjectId);
+        return $this->getSubjectTokens($subjectId);
     }
 
     /**
@@ -162,11 +162,11 @@ class TokenStorage implements TokenStorageInterface
     }
 
     /**
-     * Adds a token to the list of active user tokens.
+     * Adds a token to the list of active subject tokens.
      */
-    private function addUserToken(string $subjectId, string $jti, ?int $ttl = null): bool
+    private function addSubjectToken(string $subjectId, string $jti, ?int $ttl = null): bool
     {
-        $key = self::USER_TOKENS_PREFIX . $subjectId;
+        $key = self::SUBJECT_TOKENS_PREFIX . $subjectId;
         $tokens = $this->get($key, []);
 
         if (!in_array($jti, $tokens, true)) {
@@ -179,23 +179,23 @@ class TokenStorage implements TokenStorageInterface
     }
 
     /**
-     * Retrieves the list of active user tokens.
+     * Retrieves the list of active subject tokens.
      *
      * @return array<string, mixed>
      */
-    private function getUserTokens(string $subjectId): array
+    private function getSubjectTokens(string $subjectId): array
     {
-        $key = self::USER_TOKENS_PREFIX . $subjectId;
+        $key = self::SUBJECT_TOKENS_PREFIX . $subjectId;
 
         return (array) $this->get($key, []);
     }
 
     /**
-     * Removes a token from the list of active user tokens.
+     * Removes a token from the list of active subject tokens.
      */
-    private function removeUserToken(string $subjectId, string $jti): bool
+    private function removeSubjectToken(string $subjectId, string $jti): bool
     {
-        $key = self::USER_TOKENS_PREFIX . $subjectId;
+        $key = self::SUBJECT_TOKENS_PREFIX . $subjectId;
         $tokens = $this->get($key, []);
 
         $index = array_search($jti, $tokens, true);
@@ -210,11 +210,11 @@ class TokenStorage implements TokenStorageInterface
     }
 
     /**
-     * Clears all active user tokens.
+     * Clears all active subject tokens.
      */
-    private function clearUserTokens(string $subjectId): bool
+    private function clearSubjectTokens(string $subjectId): bool
     {
-        $key = self::USER_TOKENS_PREFIX . $subjectId;
+        $key = self::SUBJECT_TOKENS_PREFIX . $subjectId;
 
         return $this->delete($key);
     }

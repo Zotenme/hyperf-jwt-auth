@@ -38,4 +38,9 @@ interface JwtManagerInterface
      * Revokes a token (adds to blacklist).
      */
     public function revokeToken(string $token): void;
+
+    /**
+     * Revokes all tokens for a specific subject.
+     */
+    public function revokeAllSubjectTokens(string $subjectId): void;
 }
