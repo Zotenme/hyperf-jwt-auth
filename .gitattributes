@@ -1,0 +1,20 @@
+# Exclude development files and directories from composer package
+/tests export-ignore
+/docs export-ignore
+/examples export-ignore
+/.gitignore export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/phpstan.neon export-ignore
+/phpunit.xml export-ignore
+/.gitattributes export-ignore
+/README.md export-ignore
+/LICENSE export-ignore
+
+# Normalize line endings
+* text=auto
+*.php text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
