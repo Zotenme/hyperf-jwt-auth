@@ -1,0 +1,25 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - vendor
+
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Call to an undefined method.*#'
+        - '#Access to an undefined property.*#'
+        # Игнорируем ошибки мокинг-фреймворка с intersection types
+        - '#Property .* does not accept Mockery\\MockInterface#'
+        - '#Parameter .* expects .*, Mockery\\MockInterface given#'
+        - '#should return .* but returns Mockery\\MockInterface#'
+    bootstrapFiles:
+        - vendor/autoload.php
+    scanDirectories:
+        - vendor/hyperf
+    scanFiles: []
+    stubFiles: []
+    universalObjectCratesClasses:
+        - Hyperf\Contract\ConfigInterface
+        - Hyperf\Contract\ContainerInterface

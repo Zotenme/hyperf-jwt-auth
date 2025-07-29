@@ -1,0 +1,56 @@
+{
+    "name": "zotenme/hyperf-jwt-auth",
+    "description": "JWT Authentication package for Hyperf framework",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "hyperf",
+        "jwt",
+        "authentication",
+        "auth",
+        "token"
+    ],
+    "authors": [
+        {
+            "name": "Zotenme",
+            "email": "zotenme@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.3",
+        "hyperf/cache": "^3.1",
+        "lcobucci/jwt": "^5.0",
+        "ramsey/uuid": "^4.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "mockery/mockery": "^1.6",
+        "phpstan/phpstan": "^1.0",
+        "phpunit/phpunit": "^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zotenme\\JwtAuth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zotenme\\JwtAuth\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "hyperf": {
+            "config": "Zotenme\\JwtAuth\\ConfigProvider"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "analyse": "phpstan analyse --memory-limit=1024M",
+        "cs-fix": "php-cs-fixer fix --diff",
+        "test": "phpunit -c phpunit.xml --colors=always"
+    }
+}
