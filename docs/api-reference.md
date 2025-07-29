@@ -175,21 +175,21 @@ Adds a token to the blacklist.
 
 Checks if a token is blacklisted.
 
-#### `revokeAllUserTokens(string $subjectId): void`
+#### `revokeAllSubjectTokens(string $subjectId): void`
 
-Revokes all tokens for a specific user.
+Revokes all tokens for a specific subject.
 
-#### `registerUserToken(string $subjectId, string $jti, bool $ssoMode = false): void`
+#### `registerSubjectToken(string $subjectId, string $jti, bool $ssoMode = false): void`
 
-Registers a new token for a user.
+Registers a new token for a subject.
 
-#### `unregisterUserToken(string $subjectId, string $jti): void`
+#### `unregisterSubjectToken(string $subjectId, string $jti): void`
 
-Removes a token from user's active tokens.
+Removes a token from subject's active tokens.
 
-#### `getUserActiveTokens(string $subjectId): array`
+#### `getSubjectActiveTokens(string $subjectId): array`
 
-Gets all active tokens for a user.
+Gets all active tokens for a subject.
 
 #### `isBlacklistEnabled(): bool`
 
