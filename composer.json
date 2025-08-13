@@ -51,6 +51,6 @@
     "scripts": {
         "analyse": "phpstan analyse --memory-limit=1024M",
         "cs-fix": "php-cs-fixer fix --diff",
-        "test": "phpunit -c phpunit.xml --colors=always"
+        "test": "phpunit --colors=always"
     }
 }

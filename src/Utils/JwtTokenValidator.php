@@ -90,9 +90,15 @@ class JwtTokenValidator
             return $this->createPayloadFromToken($token);
         } catch (\Throwable $e) {
             if ($e instanceof RequiredConstraintsViolated) {
-                throw new TokenExpiredException('Token validation failed', 0, new \Exception($e->getMessage(), (int) $e->getCode(), $e));
+                throw new TokenExpiredException(
+                    message: 'Token validation failed',
+                    previous: new \Exception($e->getMessage(), (int) $e->getCode(), $e)
+                );
             }
-            throw new TokenInvalidException('Token parsing failed', 0, new \Exception($e->getMessage(), (int) $e->getCode(), $e));
+            throw new TokenInvalidException(
+                message: 'Token parsing failed',
+                previous: new \Exception($e->getMessage(), (int) $e->getCode(), $e)
+            );
         }
     }
 
