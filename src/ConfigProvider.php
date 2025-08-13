@@ -23,6 +23,8 @@ class ConfigProvider
      */
     public function __invoke(): array
     {
+        defined('BASE_PATH') || define('BASE_PATH', dirname(__DIR__, 2));
+
         return [
             'dependencies' => [
                 // Main services registration
@@ -42,7 +44,7 @@ class ConfigProvider
                     'id' => 'jwt',
                     'description' => 'JWT Authentication configuration file.',
                     'source' => __DIR__ . '/../publish/jwt.php',
-                    'destination' => '/config/autoload/jwt.php',
+                    'destination' => BASE_PATH . '/config/autoload/jwt.php',
                 ],
             ],
         ];

@@ -95,6 +95,6 @@ class ConfigProviderTest extends TestCase
         $this->assertSame('jwt', $jwtPublish['id']);
         $this->assertSame('JWT Authentication configuration file.', $jwtPublish['description']);
         $this->assertStringEndsWith('/publish/jwt.php', $jwtPublish['source']);
-        $this->assertSame('/config/autoload/jwt.php', $jwtPublish['destination']);
+        $this->assertStringEndsWith('/config/autoload/jwt.php', $jwtPublish['destination']);
     }
 }
